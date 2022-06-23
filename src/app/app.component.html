@@ -1,21 +1,226 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Niveaux</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li class="dropdown" *ngIf="isAuthenticated()">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin
+          <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li *ngIf="isAdmin()"><a routerLink="/adminLevels">Gestion des niveaux</a></li>
+          <li *ngIf="isUser()"><a routerLink="/adminSubjects">Gestion des Matières</a></li>
+          <li *ngIf="isUser()"><a routerLink="/adminResources">Gestion des Ressources</a></li>
+          <li *ngIf="isAdmin()"><a routerLink="/adminUsers">Gestion des Utilisateurs</a></li>
+        <!-- <li *ngIf="isAdmin()"><a routerLink="/uploadDev">UploadDev</a></li>
+          <li *ngIf="isAdmin()"><a routerLink="/myDocuments">My Documents</a></li>-->
+
+        </ul>
+
+      </li>
+    </ul>
+    <ul class="nav navbar-nav  pull-right">
+      <li *ngIf="!isAuthenticated()">
+        <a  routerLink="login" >Login</a>
+      </li>
+      <li *ngIf="isAuthenticated()">
+        <a class="btn" (click)="logOut()">Logout</a>
+      </li>
+    </ul>
+  </div>
+  <!--  <div class="container-fluid">
+      <form class="navbar-form navbar-left" action="/action_page.php">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+    </div>-->
+
+</nav>
+
+
+
+
+<!--<div id="wait"><p align="center">Chargement...<br /><br /><img src="../assets/img/loading-tools.gif" width="48" height="48" alt="" /></p></div>
+<div class="warpper">
+  <div class="warpper_cadre">
+    <div class="bulle" id="guide">
+      <div class="msg">
+        <div id="one" class="current"><h3>Bienvenue sur de-la-sale</h3> <p>le nouveau portail web de l'Institut Universitaire de la Côte.</p><br /><p>Prenez dix (10) secondes pour faire le tour des  nouvelles fonctionnalités</p></div>
+        <div id="two" class="next"><h3>Connexion à un service</h3> <p>MyIUC unifie plusieurs services en un seul compte.</p><br /><p>Vous devez donc vous connecter à l'aide de ce formulaire pour avoir accès aux différents services</p></div>
+        <div id="three"><h3>Acc&eacute;der à un service</h3> <p>Survolez une des icones ci contre et cliquez sur celle du service au quel vous souhaitez accéder.</p><br /><p>Si vous ne vous &ecirc;tes pas connect&eacute; au pr&eacute;alable, un formulaire de connexion vous sera pr&eacute;sent&eacute;, remplissez le et validez si vos informations sont excates, vous serez automatiquement connect&eacute; &agrave; ce service et &agrave; tous les autres</p></div>
+      </div>
+      <div class="actions"><a href="#" alt="prev">Précedent</a><a href="#" alt="next">Continuer</a><a href="#" alt="close">fermer</a></div>
+    </div>
+
+    <div class="ombre_cadre"><img src="../assets/img/ombre_cadre.png" alt=""/></div>
+    <div class="cadre">
+      <div class="contenu">
+        <div class="myiuc"><img src="../assets/img/de-la-sale.png" alt=""/>
+          <div class="menu_reseau">
+            <ul>
+              <li><a href="https://twitter.com/iuccameroun" target="_blank"><img src="../assets/img/twitter.png" alt=""/></a></li>
+              <li><a href="https://www.facebook.com/InstitutUniversitaireDeLaCote" target="_blank"><img src="../assets/img/facebook.png" alt=""/></a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="copyright">&copy; Copyright de-la-salle 2019 </div>
+        <div class="cadre_anim">
+          <div class="anim">
+            &lt;!&ndash; <div id="flashContent">
+                                <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="256" height="256" id="globe_tournant" align="middle">
+                                    <param name="movie" value="img/globe_tournant.swf" />
+                                    <param name="quality" value="high" />
+                                    <param name="bgcolor" value="#ffffff" />
+                                    <param name="play" value="true" />
+                                    <param name="loop" value="true" />
+                                    <param name="wmode" value="transparent" />
+                                    <param name="scale" value="exactfit" />
+                                    <param name="menu" value="false" />
+                                    <param name="devicefont" value="false" />
+                                    <param name="salign" value="" />
+                                    <param name="allowScriptAccess" value="sameDomain" />
+                                    <!- - [if !IE]> - ->
+          <object type="application/x-shockwave-flash" data="../assets/img/globe_tournant.swf" width="256" height="256">
+            <param name="movie" value="img/globe_tournant.swf " />
+            <param name="quality" value="high" />
+            <param name="bgcolor" value="#ffffff" />
+            <param name="play" value="true" />
+            <param name="loop" value="true" />
+            <param name="wmode" value="transparent" />
+            <param name="scale" value="exactfit" />
+            <param name="menu" value="false" />
+            <param name="devicefont" value="false" />
+            <param name="salign" value="" />
+            <param name="allowScriptAccess" value="sameDomain" />
+
+
+          </object>
+                                    <!- -<![endif]- ->
+                                </object>
+                            </div> &ndash;&gt;
+          </div>
+        </div>
+
+        <div class="cadre_lien">
+          &lt;!&ndash;<div class="lien"><a href="login.html" class="fancybox.ajax"><img src="img/moodle.gif" /><span>Moddle</span></a></div>
+                <div class="lien disable" id="publisite"><div class="block">Myiuc</div><a href="<?php/* echo _PUBLISITE; */?>"><img src="img/publisite.png" /><span>Publisite (sms)</span></a></div>&ndash;&gt;
+
+          <div class="lien enable" id="moodle"><div class="block">Myiuc</div><a routerLink="/adminLevels" class="fancybox" target="_blank"><img src="../assets/img/moodle.png" alt=""/><span>Gestion des niveaux</span></a></div>
+          <div class="lien enable" id="publisite"><div class="block">Myiuc</div><a href="https://eplacing.myiuc.com/app.php/login/morpheus/" target="_blank"><img src="../assets/img/eplacing.png" alt=""/><span>Gestion des matières</span></a></div>
+          <div class="lien enable" id="webmail"><div class="block">Myiuc</div><a href="https://portal.office.com/" target="_blank"><img src="../assets/img/webmail.png" alt=""/><span>Webmail</span></a></div>
+          <div class="lien enable" id="ensg"><div class="block">Myiuc</div><a href="https://recrutement.myiuc.com/index.php/online" target="_blank"><img src="../assets/img/logoMyiucRH.png" alt=""/><span>Gestion des ressources</span></a></div>
+          <div class="lien enable" id="inscriptiononline"><div class="block">Myiuc</div><a href="https://applynow.myiuc.com/" target="_blank"><img src="../assets/img/inscription.png" alt=""/><span>Inscription en ligne</span></a></div>
+          <div class="lien enable" id="siteweb"><div class="block">Myiuc</div><a href="http://www.iuc-univ.com/" target="_blank"><img src="../assets/img/siteweb.png" alt=""/><span>Site web</span></a></div>
+          <div class="lien enable" id="rdi"><div class="block">Myiuc</div><a href="https://mystudentinfos.myiuc.com/app.php/login" target="_blank"><img src="../assets/img/encadrer.png" alt=""/><span>My Student Infos</span></a></div>
+          <div class="lien enable" id="agora"><div class="block">Myiuc</div><a href="https://project.myiuc.com/" target="_blank"><img src="../assets/img/agora.png" alt=""/><span>Agora</span></a></div>
+          <div class="lien disable" id="emc"><div class="block">Myiuc</div><a href="post_emc.html" class="fancybox" target="_blank"><img src="../assets/img/documents.png" alt=""/><span>Evaluation des enseignements</span></a></div>
+          <div class="clear">&nbsp;</div>
+        </div>
+      </div>
+    </div>
+    &lt;!&ndash;<div class="logo_cadre"><a href="#"><img src="../assets/img/logo.gif" alt=""/></a></div>&ndash;&gt;
+  </div>
+</div>-->
+
+<div class="row">
+  <h1 align="center">
+    <!--Welcome to {{ title }}!-->
+  </h1>
+  <div class="col-md-2">
+    <app-levels></app-levels>
+  </div>
+  <div class="col-md-9">
+    <router-outlet>
+
+    </router-outlet>
+  </div>
+</div>
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<!--  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>dialpad</mat-icon>
+      <span><a routerLink="resources">Login</a></span>
+    </button>
+    <button mat-menu-item disabled>
+      <mat-icon>voicemail</mat-icon>
+      <span>Check voice mail</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>notifications_off</mat-icon>
+      <span>Disable alerts</span>
+    </button>
+  </mat-menu>-->
 
-<router-outlet></router-outlet>
+
+  <!--<div class="example-container">
+    <mat-form-field>
+      <input matInput placeholder="Input">
+    </mat-form-field>
+
+    <mat-form-field>
+      <textarea matInput placeholder="Textarea"></textarea>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="Select">
+        <mat-option value="option">Option</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button color="accent">Accent</button>
+  </div>-->
+  <div>
+    <div class="scene">
+      <div class="carousel">
+        <div class="carousel__cell">1</div>
+        <div class="carousel__cell">2</div>
+        <div class="carousel__cell">3</div>
+        <div class="carousel__cell">4</div>
+        <div class="carousel__cell">5</div>
+        <div class="carousel__cell">6</div>
+        <div class="carousel__cell">7</div>
+        <div class="carousel__cell">8</div>
+        <div class="carousel__cell">9</div>
+        <div class="carousel__cell">10</div>
+        <div class="carousel__cell">11</div>
+        <div class="carousel__cell">12</div>
+        <div class="carousel__cell">13</div>
+        <div class="carousel__cell">14</div>
+        <div class="carousel__cell">15</div>
+      </div>
+    </div>
+
+    <div class="carousel-options">
+      <p>
+        <label>
+          Cells
+          <input class="cells-range" type="range" min="3" max="15" value="9" />
+        </label>
+      </p>
+      <p>
+        <button class="previous-button">Previous</button>
+        <button class="next-button">Next</button>
+      </p>
+      <p>
+        Orientation:
+        <label>
+          <input type="radio" name="orientation" value="horizontal" checked />
+          horizontal
+        </label>
+        <label>
+          <input type="radio" name="orientation" value="vertical" />
+          vertical
+        </label>
+      </p>
+    </div>
+
+
+  </div>
+</div>
